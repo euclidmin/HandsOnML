@@ -1,13 +1,10 @@
-from typing import Union
+import os
 
-import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import sklearn
-import sys
-import os
-import pprint
+import sklearn.linear_model
+
 
 # pp = pprint.PrettyPrinter()
 
