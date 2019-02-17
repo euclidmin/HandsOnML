@@ -67,10 +67,13 @@ def main_1_3_3():
 # ===============================================================================================
 import tarfile
 from six.moves import urllib
+from pathlib import Path
+import matplotlib.pyplot as plt
 
 DOWNLOAD_ROOT = "https://raw.githubusercontent.com/ageron/handson-ml/master/"
 HOUSING_PATH = os.path.join("datasets", "housing")
 HOUSING_URL = DOWNLOAD_ROOT + "datasets/housing/housing.tgz"
+
 
 def fetch_housing_data(housing_url=HOUSING_URL, housing_path=HOUSING_PATH):
     if not os.path.isdir(housing_path):
@@ -82,9 +85,39 @@ def fetch_housing_data(housing_url=HOUSING_URL, housing_path=HOUSING_PATH):
     housing_tgz.close()
 
 
+def load_housing_data(housing_path=HOUSING_PATH):
+    # csv_path = os.path.join(housing_path, 'housing.csv')
+    csv_path = Path('./datasets/housing') / 'housing.csv'
+    return pd.read_csv(csv_path)
+
+
+def main_2_3_3() :
+    housing = load_housing_data()
+    pd.set_option('display.max_columns', 100)
+    pd.set_option('display.width', 200)
+    print(housing.head())
+    print(housing.info())
+
+    vc = housing['ocean_proximity'].value_counts()
+    print(vc.index)
+    print(vc)
+
+    h_desc = housing.describe()
+    print(h_desc)
+
+    housing.hist(bins=50, figsize=(20, 15))
+    plt.show()
+
+
+
+
+
+
 
 
 
 
 if __name__ == '__main__':
-    main_1_3_3()
+    # main_1_3_3()
+    main_2_3_3()
+
