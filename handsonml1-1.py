@@ -110,14 +110,32 @@ def main_2_3_3() :
 
 
 
+def split_train_test(data, test_ratio):
+    shuffled_indices = np.random.permutation(len(data))
+    test_set_size = int(len(data) * test_ratio)
+    test_indices = shuffled_indices[:test_set_size]
+    train_indices = shuffled_indices[test_set_size:]
+    return data.iloc[train_indices], data.iloc[test_indices]
 
 
+def main_2_3_4():
+    housing = load_housing_data()
+    train_set, test_set = split_train_test(housing, 0.2)
+    print(len(train_set), 'train +', len(test_set), 'test')
 
+    housing['income_cat'] = np.ceil(housing['median_income'] / 1.5)
+    housing['income_cat'].where(housing['income_cat']<5, 5.0, inplace=True)
+    print(housing['income_cat'])
+    
+def main_2_4_1():
+    
 
 
 
 
 if __name__ == '__main__':
     # main_1_3_3()
-    main_2_3_3()
+    # main_2_3_3()
+    main_2_3_4()
+    
 
